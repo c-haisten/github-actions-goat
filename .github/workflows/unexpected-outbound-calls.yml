@@ -6,6 +6,17 @@ jobs:
     name: UnexpectedOutboundCalls
     runs-on: ubuntu-latest
     steps:
+      - name: Checkout repo
+        uses: actions/checkout@v2
+
+      - name: Run Prisma Cloud 
+        id: prisma-cloud
+        uses: bridgecrewio/checkov-action@master
+        env:
+          PRISMA_API_URL: https://api3.prismacloud.io
+        with:
+          api-key: ${{ secrets.BC_API_KEY }}
+    steps:
       - name: Harden Runner
         uses: step-security/harden-runner@v2
         with:
